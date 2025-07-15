@@ -14,47 +14,34 @@
 
 // Dica: lembrando que é possível acessar o texto de um input através da propriedade value.
 
-function escalarJogador(){
-  const jogadorSection = document.getElementById('players-list')
+function addPlayer(){
+  const position = document.getElementById('position').value
+  const name = document.getElementById('name').value
+  const number = document.getElementById('number').value
 
-  const h3 = document.createElement('h3')
-  h3.innerText = 'Escalar um Jogador'
+  const confirmation = confirm("Escalar " + name + " como " + position + "?")
 
-  const ul = document.createElement('ul')
+  if (confirmation) {
+    const teamList = document.getElementById('teamList')
+    const playerItem = document.createElement('li')
+    playerItem.id = 'player-' + number
+    playerItem.innerText = position + ": " + name + " (" + number + ")"
+    teamList.appendChild(playerItem)
 
+    document.getElementById('position').value = ''
+    document.getElementById('name').value = ''
+    document.getElementById('number').value = ''
+  }
+}
 
-  // Campo Posição
-  const positionLi = document.createElement('li')
-  positionLi.innerText = 'Posição: '
-  const positionInput = document.createElement('input')
-  positionInput.type = 'text'
-  positionInput.name = 'position'
-  positionLi.appendChild(positionInput) // positionInput vai dentro do positionLi
-  ul.appendChild(positionLi) // e o positionLi vai dentro da ul
+function removePlayer(){
+  const number = document.getElementById('numberToRemove').value
+  const playerToRemove = document.getElementById('player-' + number)
 
-  // Campo Nome
-  const nameLi = document.createElement('li')
-  nameLi.innerText = 'Nome do jogador: '
-  const nameInput = document.createElement('input')
-  nameInput.type = 'text'
-  nameInput.name = 'name'
-  nameLi.appendChild(nameInput) 
-  ul.appendChild(nameLi) 
-
-  //Campo numero da camisa
-  const numberLi = document.createElement('li')
-  numberLi.innerText = 'Número da camisa: '
-  const numberInput = document.createElement('input')
-  numberInput.type = 'text'
-  numberInput.name = 'number'
-  numberLi.appendChild(numberInput) 
-  ul.appendChild(numberLi) 
-
-  // Botao de escalar
-  const botaoEscalar = document.createElement('button')
-  botaoEscalar.innerText = 'Escalar'
-  ul.appendChild(botaoEscalar)
+  const confirmation = confirm('Remover o jogador ' + playerToRemove.innerText + '?')
   
-
-  jogadorSection.append(h3, ul)
+  if (confirmation) {
+    document.getElementById('teamList').removeChild(playerToRemove)
+    document.getElementById('numberToRemove').value = ''
+  }
 }
